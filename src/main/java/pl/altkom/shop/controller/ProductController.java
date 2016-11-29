@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ProductController {
 
 	@RequestMapping("/list")
-	public void list(Writer writer, @RequestParam(required = false, value = "page") Integer page) throws Exception {
+	public void list(Writer writer, @RequestParam(required = false, value = "page") Integer page,
+			@RequestParam(required = false, value = "orderBy") String orderBy) throws Exception {
 		writer.write("Page: " + page);
+		writer.write(" OrderBy: " + orderBy);
 	}
 
 }
