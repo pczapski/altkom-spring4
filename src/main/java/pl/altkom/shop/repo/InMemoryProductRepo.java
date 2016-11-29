@@ -8,18 +8,25 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import pl.altkom.shop.model.Product;
 
 @Repository
 public class InMemoryProductRepo implements ProductRepo {
+	Logger log = Logger.getLogger(InMemoryProductRepo.class);
+
 	Map<Long, Product> products = new HashMap<Long, Product>();
 
 	@PostConstruct
 	public void init() {
 		insert(new Product("Rower", "Bardzo dobry rower", 12, BigDecimal.TEN));
 		insert(new Product("Sanki", "Sanki zimowe", 123, BigDecimal.valueOf(12.45)));
+
+		log.info("#####################################");
+		log.info("Products added");
+		log.info("#####################################");
 	}
 
 	@Override
