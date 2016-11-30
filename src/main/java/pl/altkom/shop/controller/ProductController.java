@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,8 +57,7 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String submitForm(@ModelAttribute Product product, BindingResult bindingResult) throws Exception {
-		bindingResult.rejectValue("name", "illegal.value");
+	public String submitForm(@ModelAttribute @Valid Product product, BindingResult bindingResult) throws Exception {
 		if (bindingResult.hasErrors()) {
 			return "product/product-form";
 		}
