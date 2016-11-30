@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,7 +56,12 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String submitForm(@ModelAttribute Product product) throws Exception {
+	public String submitForm(@ModelAttribute Product product, BindingResult bindingResult) throws Exception {
+		bindingResult.rejectValue("name", "illegal.value");
+		if (bindingResult.hasErrors()) {
+			return "product/product-form";
+		}
+
 		if (product.getId() != null) {
 			repo.update(product);
 		} else {
