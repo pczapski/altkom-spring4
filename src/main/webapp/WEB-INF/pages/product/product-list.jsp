@@ -16,5 +16,28 @@
 	</ul>
 </div>
 
+<table class="table table-hover table-striped">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Name</th>
+				<th>Quantity</th>
+				<th>Price</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="p" items="${products}">
+				<tr>
+					<td>${p.id}</td>
+					<td>${p.name}</td>
+					<td>${p.quantity}</td>
+					<td>${p.price}</td>
+					<td></td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+
 <%@ include file="/WEB-INF/pages/layout/footer.jsp"%>
 
