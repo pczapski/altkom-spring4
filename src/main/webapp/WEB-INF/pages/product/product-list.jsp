@@ -41,6 +41,7 @@
 					<td>${p.quantity}</td>
 					<td>${p.price}</td>
 					<td>
+						<a href="${p.id}/edit"> <i class=" glyphicon glyphicon-pencil"></i></a>
 						<a href="${p.id}/delete"> <i class=" glyphicon glyphicon-remove-circle"></i></a>
 					</td>
 				</tr>

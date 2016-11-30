@@ -56,8 +56,18 @@ public class ProductController {
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String submitForm(@ModelAttribute Product product) throws Exception {
-		repo.insert(product);
+		if (product.getId() != null) {
+			repo.update(product);
+		} else {
+			repo.insert(product);
+		}
 		return "redirect:/product/list";
 	}
 
+	@RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
+	public String edit(@PathVariable("id") Long id, Model model) throws Exception {
+		Product product = repo.find(id);
+		model.addAttribute("product", product);
+		return "product/product-form";
+	}
 }
