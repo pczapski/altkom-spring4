@@ -33,7 +33,9 @@
 					<td>${p.name}</td>
 					<td>${p.quantity}</td>
 					<td>${p.price}</td>
-					<td></td>
+					<td>
+						<a href="${p.id}/delete"> <i class=" glyphicon glyphicon-remove-circle"></i></a>
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
