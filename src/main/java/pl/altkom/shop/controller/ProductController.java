@@ -41,6 +41,14 @@ public class ProductController {
 		return "product/product-list";
 	}
 
+	@RequestMapping("/list.pdf")
+	public String listAsPdf(@RequestParam(required = false, value = "page") Integer page, Model model)
+			throws Exception {
+		List<Product> products = repo.getAll();
+		model.addAttribute("products", products);
+		return "productPDFView";
+	}
+
 	@RequestMapping("/{id}/delete")
 	public String delte(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) throws Exception {
 		repo.delete(id);
