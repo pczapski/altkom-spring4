@@ -27,10 +27,10 @@
 		<thead>
 			<tr>
 				<th>Id</th>
-				<th>Name</th>
-				<th>Quantity</th>
-				<th>Price</th>
-				<th>Actions</th>
+				<th><spring:message code="product.name"/></th>
+				<th><spring:message code="product.quantity"/></th>
+				<th><spring:message code="product.price"/></th>
+				<th><spring:message code="product.actions"/></th>
 			</tr>
 		</thead>
 		<tbody>
