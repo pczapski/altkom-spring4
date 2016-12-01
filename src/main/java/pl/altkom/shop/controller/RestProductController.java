@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import pl.altkom.shop.aop.Monitoring;
 import pl.altkom.shop.model.Product;
 import pl.altkom.shop.repo.ProductRepo;
 
@@ -22,6 +23,7 @@ public class RestProductController {
 	@Inject
 	ProductRepo repo;
 
+	@Monitoring
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Product> list() {
 		return repo.getAll();

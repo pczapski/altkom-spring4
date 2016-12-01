@@ -9,6 +9,7 @@ import javax.persistence.PersistenceUnit;
 
 import org.springframework.stereotype.Repository;
 
+import pl.altkom.shop.aop.Monitoring;
 import pl.altkom.shop.model.Product;
 
 @Repository
@@ -64,7 +65,7 @@ public class HibernateProductRepo implements ProductRepo {
 		commit(em);
 	}
 
-	@SuppressWarnings("unchecked")
+	@Monitoring
 	@Override
 	public List<Product> getAll() {
 		EntityManager em = startTx();
