@@ -3,6 +3,7 @@ package pl.altkom.shop.www;
 import java.util.EnumSet;
 
 import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration.Dynamic;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
@@ -12,6 +13,7 @@ import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 
 import pl.altkom.shop.CoreConfig;
@@ -28,6 +30,10 @@ public class WebBootstrap implements WebApplicationInitializer {
 
 		container.addListener(new ContextLoaderListener(ctx));
 		container.addListener(RequestContextListener.class);
+
+		Dynamic securityFiler = container.addFilter("springSecurityFilterChain",
+				new DelegatingFilterProxy("springSecurityFilterChain"));
+		securityFiler.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), false, "/*");
 
 		ServletRegistration.Dynamic servlet = container.addServlet("dispatcher", new DispatcherServlet(ctx));
 		servlet.setLoadOnStartup(1);
