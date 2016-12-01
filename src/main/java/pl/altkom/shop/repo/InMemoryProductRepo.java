@@ -9,11 +9,10 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 
 import org.apache.log4j.Logger;
-import org.springframework.stereotype.Repository;
 
 import pl.altkom.shop.model.Product;
 
-@Repository
+//@Repository
 public class InMemoryProductRepo implements ProductRepo {
 	Logger log = Logger.getLogger(InMemoryProductRepo.class);
 
