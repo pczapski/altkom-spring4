@@ -2,6 +2,7 @@ package pl.altkom.shop.model;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +17,7 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 	@NotEmpty
+	@Column(unique = true)
 	private String name;
 	private String description;
 	@NotNull

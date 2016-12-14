@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.altkom.shop.model.Product;
 import pl.altkom.shop.repo.ProductRepo;
 import pl.altkom.shop.service.ProductService;
+import pl.altkom.shop.service.SomeService;
 
 @Controller
 @RequestMapping("/product")
@@ -26,7 +28,10 @@ public class ProductController {
 	@Inject
 	ProductRepo repo;
 	@Inject
+	SomeService someService;
+	@Inject
 	ProductService service;
+	Logger log = Logger.getLogger(ProductController.class);
 
 	@RequestMapping("/list")
 	public String list(Model model, @RequestParam(required = false, value = "page") Integer page,
@@ -69,11 +74,11 @@ public class ProductController {
 		if (bindingResult.hasErrors()) {
 			return "product/product-form";
 		}
-
-		if (product.getId() != null) {
-			repo.update(product);
-		} else {
-			repo.insert(product);
+		try {
+			someService.doito(product);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			System.out.println(e);
 		}
 		return "redirect:/product/list";
 	}
