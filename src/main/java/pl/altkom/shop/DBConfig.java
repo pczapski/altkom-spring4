@@ -11,11 +11,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.jta.JtaTransactionManager;
 
 @Configuration
 @PropertySource(value = { "classpath:application.properties" })
@@ -54,11 +54,12 @@ public class DBConfig {
 		Properties properties = new Properties();
 		properties.put("hibernate.show_sql", true);
 		properties.put("hibernate.format_sql", true);
-		properties.put("hibernate.transaction.flush_before_completion", true);
-		properties.put("hibernate.transaction.auto_close_session", true);
-		properties.put("hibernate.transaction.coordinator_class", "jta");
-		properties.put("hibernate.current_session_context_class", "jta");
-		properties.put("hibernate.transaction.jta.platform", "JBossAS");
+		// properties.put("hibernate.transaction.flush_before_completion",
+		// true);
+		// properties.put("hibernate.transaction.auto_close_session", true);
+		// properties.put("hibernate.transaction.coordinator_class", "jta");
+		// properties.put("hibernate.current_session_context_class", "jta");
+		// properties.put("hibernate.transaction.jta.platform", "JBossAS");
 		emFactory.setJpaProperties(properties);
 		emFactory.setDataSource(dataSource());
 		emFactory.setPackagesToScan(new String[] { "pl.altkom.shop.model" });
@@ -75,8 +76,17 @@ public class DBConfig {
 
 	@Bean
 	@Autowired
-	public JtaTransactionManager transactionManager(EntityManagerFactory em) {
-		JtaTransactionManager txManager = new JtaTransactionManager();
+	public JpaTransactionManager transactionManager(EntityManagerFactory em) {
+		JpaTransactionManager txManager = new JpaTransactionManager();
+		txManager.setEntityManagerFactory(em);
 		return txManager;
 	}
+
+	// @Bean
+	// @Autowired
+	// public JtaTransactionManager transactionManager(EntityManagerFactory em)
+	// {
+	// JtaTransactionManager txManager = new JtaTransactionManager();
+	// return txManager;
+	// }
 }

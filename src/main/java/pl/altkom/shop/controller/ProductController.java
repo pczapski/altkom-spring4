@@ -74,12 +74,12 @@ public class ProductController {
 		if (bindingResult.hasErrors()) {
 			return "product/product-form";
 		}
-		try {
-			someService.doito(product);
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-			System.out.println(e);
-		}
+		// try {
+		someService.doito(product);
+		// } catch (Exception e) {
+		// log.error(e.getMessage(), e);
+		// System.out.println(e);
+		// }
 		return "redirect:/product/list";
 	}
 
