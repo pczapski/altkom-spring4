@@ -18,12 +18,12 @@ public class CXFConfig {
 	@Autowired
 	private Bus bus;
 	@Inject
-	ProductSOAPWebService saleDocumentSOAPWebService;
+	ProductSOAPWebService productSOAPWebService;
 
 	@Bean
 	public Endpoint myServiceEndpoint() {
-		EndpointImpl endpoint = new EndpointImpl(bus, saleDocumentSOAPWebService);
-		endpoint.publish("/sale");
+		EndpointImpl endpoint = new EndpointImpl(bus, productSOAPWebService);
+		endpoint.publish("/product");
 		return endpoint;
 	}
 
