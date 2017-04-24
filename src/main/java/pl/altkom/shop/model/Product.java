@@ -42,12 +42,6 @@ public class Product {
 	}
 
 	public void setName(String name) {
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		this.name = name;
 	}
 
