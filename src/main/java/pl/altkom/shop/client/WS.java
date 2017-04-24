@@ -28,7 +28,7 @@ public class WS {
 		// httpClientPolicy.setAllowChunking(false);
 		// http.setClient(httpClientPolicy);
 
-		Product findById = productSOAPWebServicePort.findById(4L);
+		Product findById = productSOAPWebServicePort.findById(6L);
 		System.out.println(findById);
 	}
 

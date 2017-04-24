@@ -17,7 +17,7 @@ import pl.altkom.shop.model.Product;
 import pl.altkom.shop.repo.ProductRepo;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping(value = "/api/products")
 public class RestProductController {
 
 	@Inject
