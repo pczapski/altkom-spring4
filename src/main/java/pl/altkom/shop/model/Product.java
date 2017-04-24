@@ -12,6 +12,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Product {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
