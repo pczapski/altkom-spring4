@@ -12,6 +12,7 @@ import pl.altkom.shop.model.SaleDocument;
 
 @Component
 @Path("/saleDocument")
+@Produces(MediaType.APPLICATION_JSON)
 public class SaleDocumentRESTWebService {
 	@GET
 	@Path("/{id}")
