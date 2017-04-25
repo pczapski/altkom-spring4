@@ -1,4 +1,4 @@
-package pl.altkom.shop.controller;
+package pl.altkom.shop.cxf;
 
 import javax.inject.Inject;
 import javax.jws.WebMethod;

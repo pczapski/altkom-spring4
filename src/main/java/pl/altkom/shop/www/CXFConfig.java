@@ -20,13 +20,16 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.annotation.Profile;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
-import pl.altkom.shop.controller.ProductSOAPWebService;
+import pl.altkom.shop.cxf.ProductSOAPWebService;
+import pl.altkom.shop.lib.Profiles;
 
 @Configuration
 @ImportResource({ "classpath:META-INF/cxf/cxf.xml" })
+@Profile(Profiles.WEB)
 public class CXFConfig implements ApplicationContextAware {
 	@Inject
 	private Bus bus;
