@@ -1,59 +1,48 @@
+$(document).ajaxStart(function() {
+	NProgress.start()
+});
+$(document).ajaxComplete(function() {
+	NProgress.done()
+});
 $(document).ready(function() {
-	// console.log('dzialam')
-	//	
-	// $.get('http://localhost:8080/shop/api/products?query=sa',
-	// function(data){
-	// $("table tbody").empty();
-	// console.log(data)
-	// for(let el of data){
-	// $("table tbody").append(`<tr>
-	// <td>${el.name}</td>
-	// <td>${el.quantity}</td>
-	// <td>${el.price}</td>
-	// </tr>`);
-	// }
-	// })
-
-	// $.get('http://localhost:8080/shop/product/list-as-rows',
-	// function(data) {
-	// $("table tbody").empty();
-	// $("table tbody").append(data);
-	// })
+	$(".searcher").keyup(function() {
+		console.log($(".searcher").val())
+		$.get('list/productsTable', function(data) {
+			$("table tbody").empty();
+			var tbody = $(data).find("tbody tr")
+			$("table tbody").append(tbody);
+		})
+	})
 
 });
 
 var phonecatApp = angular.module('cart', []);
-phonecatApp.service('ProductsService',  function ($http) {
+phonecatApp.service('ProductsService', function($http) {
+	var urlBase = 'api/products';
 
-        var urlBase = 'api/products';
-
-        this.getProducts = function () {
-            return $http.get(urlBase);
-        };
- });
-phonecatApp.controller('CartController', function CartController($scope,ProductsService) {
+	this.getProducts = function() {
+		return $http({
+			url : urlBase,
+			params : {
+				query : 'qwe'
+			},
+			method : "GET",
+		});
+	};
+});
+phonecatApp.controller('CartController', function CartController($scope,
+		ProductsService) {
 	$scope.lines = []
 	$scope.total = 0;
-	
-	ProductsService.getProducts().then(function(response){
-		$scope.products = response.data;
-	
-	
 
-	$scope.$watch('lines', function(newV, old) {
-		var total = 0;
-		newV.forEach(function(element) {
-			var product = $scope.products.find(function(el){
-				return element.id==el.id;
-			})
-			element.price = product.price;
-			element.sum = Number((element.quantity * element.price).toFixed(2));
-			total += element.sum;
-		});
-		$scope.total = total.toFixed(2);
-	}, true);
+	ProductsService.getProducts().then(function(response) {
+		$scope.products = response.data;
+
+		$scope.$watch('lines', function(newV, old) {
+			calculateCart($scope, newV, $scope.products);
+		}, true);
 	})
-	
+
 	$scope.addLine = function() {
 		$scope.lines.push({
 			"quantity" : 1
@@ -66,3 +55,21 @@ phonecatApp.controller('CartController', function CartController($scope,Products
 	}
 
 });
+
+function calculateCart(cart, lines, products) {
+	var total = 0;
+	lines
+			.forEach(function(element) {
+				var product = products.find(function(el) {
+					return element.id == el.id;
+				})
+				if (product) {
+					element.price = product.price;
+					element.avaliable = product.quantity;
+					element.sum = Number((element.quantity * element.price)
+							.toFixed(2));
+					total += element.sum;
+				}
+			});
+	cart.total = total.toFixed(2);
+}

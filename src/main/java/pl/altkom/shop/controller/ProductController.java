@@ -2,10 +2,13 @@ package pl.altkom.shop.controller;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Random;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.apache.commons.io.IOUtils;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pl.altkom.shop.model.Product;
@@ -32,13 +36,22 @@ public class ProductController {
 	public String list(Model model, @RequestParam(required = false, value = "page") Integer page,
 			@RequestParam(required = false, value = "orderBy") String orderBy) throws Exception {
 
+		productsTable(model, page, orderBy);
+
+		return "product/product-list";
+	}
+
+	@RequestMapping("/list/productsTable")
+	public String productsTable(Model model, @RequestParam(required = false, value = "page") Integer page,
+			@RequestParam(required = false, value = "orderBy") String orderBy) throws Exception {
+
 		model.addAttribute("page", page);
 		model.addAttribute("orderBy ", orderBy);
 
 		List<Product> products = repo.getAll();
 		model.addAttribute("products", products);
 
-		return "product/product-list";
+		return "product/product-list-prod-table";
 	}
 
 	@RequestMapping("/list.pdf")
@@ -62,6 +75,14 @@ public class ProductController {
 		product.setPrice(BigDecimal.TEN);
 		model.addAttribute("product", product);
 		return "product/product-form";
+	}
+
+	@RequestMapping(value = "/img", method = RequestMethod.GET, produces = MediaType.IMAGE_PNG_VALUE)
+	@ResponseBody
+	public byte[] img(Model model) throws Exception {
+		List<String> files = IOUtils.readLines(ProductController.class.getClassLoader().getResourceAsStream("phones/"));
+		String string = files.get(new Random().nextInt(files.size()));
+		return IOUtils.toByteArray(ProductController.class.getClassLoader().getResourceAsStream("phones/" + string));
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)

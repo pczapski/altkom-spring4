@@ -28,32 +28,8 @@
 			</span>
 		</div>
 	</div>
-
-<table class="table table-hover table-striped">
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th><spring:message code="product.name"/></th>
-				<th><spring:message code="product.quantity"/></th>
-				<th><spring:message code="product.price"/></th>
-				<th><spring:message code="product.actions"/></th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="p" items="${products}">
-				<tr>
-					<td>${p.id}</td>
-					<td>${p.name}</td>
-					<td>${p.quantity}</td>
-					<td>${p.price}</td>
-					<td>
-						<a href="${p.id}/edit"> <i class=" glyphicon glyphicon-pencil"></i></a>
-						<a href="${p.id}/delete"> <i class=" glyphicon glyphicon-remove-circle"></i></a>
-					</td>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
+	
+<%@ include file="product-list-prod-table.jsp"%>
 
 <%@ include file="/WEB-INF/pages/layout/footer.jsp"%>
 

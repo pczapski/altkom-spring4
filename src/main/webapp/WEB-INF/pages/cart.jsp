@@ -26,8 +26,7 @@
 						<td class="col-sm-8 col-md-6">
 							<div class="media">
 								<a class="thumbnail pull-left" href="#"> <img
-									class="media-object"
-									src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png"
+									src="${contextPath}/product/img"
 									style="width: 72px; height: 72px;">
 								</a>
 								<div class="media-body">
@@ -41,7 +40,7 @@
 									<h5 class="media-heading">
 										by <a href="#">Brand name</a>
 									</h5>
-									<span>Status: </span><span class="text-success"><strong>In
+									<span>Status: </span><span class="{{line.avaliable > 10 ? 'text-success' : 'text-warning'}}"><strong>In
 											Stock</strong></span>
 								</div>
 							</div>
