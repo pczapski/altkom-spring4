@@ -65,7 +65,8 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String submitForm(@ModelAttribute @Valid Product product, BindingResult bindingResult) throws Exception {
+	public String submitForm(@ModelAttribute @Valid Product product, BindingResult bindingResult,
+			RedirectAttributes redirectAttributes) throws Exception {
 		if (bindingResult.hasErrors()) {
 			return "product/product-form";
 		}
@@ -75,6 +76,7 @@ public class ProductController {
 		} else {
 			repo.insert(product);
 		}
+		redirectAttributes.addFlashAttribute("saved", true);
 		return "redirect:/product/list";
 	}
 

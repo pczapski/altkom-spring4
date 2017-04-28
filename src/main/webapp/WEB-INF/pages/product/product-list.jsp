@@ -7,7 +7,12 @@
 	pageEncoding="UTF-8"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ include file="/WEB-INF/pages/layout/head.jsp"%>
-
+<c:if test="${saved}">
+		<div class="alert alert-success" role="alert" >
+			<span class="glyphicon 	glyphicon glyphicon-ok" aria-hidden="true"></span>
+			Zapisano product
+		</div>
+		</c:if>
  <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
 	<a href="new" class="btn btn-primary "> <i
 		class=" glyphicon glyphicon-plus"></i> Add new product
