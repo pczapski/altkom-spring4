@@ -1,5 +1,7 @@
 package pl.altkom.shop.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Random;
@@ -7,7 +9,7 @@ import java.util.Random;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
-import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.FileUtils;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pl.altkom.shop.model.Product;
@@ -27,6 +30,8 @@ import pl.altkom.shop.service.ProductService;
 @Controller
 @RequestMapping("/product")
 public class ProductController {
+	static File imagesDir = new File("C:\\Users\\Mirek\\git\\altkom-spring42\\phones");
+
 	@Inject
 	ProductRepo repo;
 	@Inject
@@ -77,21 +82,21 @@ public class ProductController {
 		return "product/product-form";
 	}
 
-	@RequestMapping(value = "/img", method = RequestMethod.GET, produces = MediaType.IMAGE_PNG_VALUE)
+	@RequestMapping(value = "/img/{id}", method = RequestMethod.GET, produces = MediaType.IMAGE_PNG_VALUE)
 	@ResponseBody
-	public byte[] img(Model model) throws Exception {
-		List<String> files = IOUtils.readLines(ProductController.class.getClassLoader().getResourceAsStream("phones/"));
-		String string = files.get(new Random().nextInt(files.size()));
-		return IOUtils.toByteArray(ProductController.class.getClassLoader().getResourceAsStream("phones/" + string));
+	public byte[] img(@PathVariable("id") Long id) throws Exception {
+		String imgLocation = repo.find(id).getImgLocation();
+		return imgLocation != null ? FileUtils.readFileToByteArray(new File(imgLocation)) : null;
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String submitForm(@ModelAttribute @Valid Product product, BindingResult bindingResult,
-			RedirectAttributes redirectAttributes) throws Exception {
+			RedirectAttributes redirectAttributes, @RequestParam("file") MultipartFile file) throws Exception {
 		if (bindingResult.hasErrors()) {
 			return "product/product-form";
 		}
-
+		File savedFile = saveFile(file);
+		product.setImgLocation(savedFile.getAbsolutePath());
 		if (product.getId() != null) {
 			repo.update(product);
 		} else {
@@ -99,6 +104,19 @@ public class ProductController {
 		}
 		redirectAttributes.addFlashAttribute("saved", true);
 		return "redirect:/product/list";
+	}
+
+	private File saveFile(MultipartFile file) throws IOException {
+		File savedFile;
+
+		if (file.isEmpty()) {
+			File[] listFiles = imagesDir.listFiles();
+			savedFile = listFiles[new Random().nextInt(listFiles.length)];
+		} else {
+			savedFile = new File(imagesDir.getAbsolutePath() + File.separator + file.getOriginalFilename());
+			FileUtils.copyInputStreamToFile(file.getInputStream(), savedFile);
+		}
+		return savedFile;
 	}
 
 	@RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)

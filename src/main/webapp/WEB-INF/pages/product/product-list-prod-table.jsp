@@ -19,7 +19,7 @@
 		<tbody>
 			<c:forEach var="p" items="${products}">
 				<tr>
-					<td>${p.id}</td>
+					<td>${p.id}<img src="img/${p.id}" style="width:30px;height:30px"/></td>
 					<td>${p.name}</td>
 					<td>${p.quantity}</td>
 					<td>${p.price}</td>

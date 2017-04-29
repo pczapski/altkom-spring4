@@ -26,7 +26,7 @@
 							<td class="col-sm-8 col-md-6">
 								<div class="media">
 									<a class="thumbnail pull-left" href="#"> <img
-										src="${contextPath}/product/img"
+										ng-src="${contextPath}/product/img/{{line.id}}"
 										style="width: 72px; height: 72px;">
 									</a>
 									<div class="media-body">

@@ -22,6 +22,7 @@ public class Product {
 	private Integer quantity;
 	@NotNull
 	private BigDecimal price;
+	private String imgLocation;
 
 	public Product(String name, String description, int quentity, BigDecimal price) {
 		this.name = name;
@@ -72,6 +73,14 @@ public class Product {
 
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
+	}
+
+	public String getImgLocation() {
+		return imgLocation;
+	}
+
+	public void setImgLocation(String imgLocation) {
+		this.imgLocation = imgLocation;
 	}
 
 }
