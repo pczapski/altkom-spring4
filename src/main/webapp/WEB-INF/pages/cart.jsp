@@ -27,7 +27,7 @@
 								<div class="media">
 									<a class="thumbnail pull-left" href="#"> <img
 										ng-src="${contextPath}/product/img/{{line.id}}"
-										style="width: 72px; height: 72px;">
+										style="width: 60px; height: 60px;">
 									</a>
 									<div class="media-body">
 										<h4 class="media-heading">
@@ -74,10 +74,19 @@
 							</td>
 							<td> </td>
 							<td> </td>
-							<td><h3>Total</h3></td>
-							<td class="text-right"><h3>
+							<td><h4>Netto</h4>
+							<h4>Vat</h4>
+							<h3>Total</h3></td>
+							<td class="text-right"><h4>
+									<strong>{{netto}}</strong>
+								</h4>
+								<h4>
+									<strong>{{vat}}</strong>
+								</h4>
+								<h3>
 									<strong>{{total}}</strong>
-								</h3></td>
+								</h3> 
+								</td>
 						</tr>
 						<tr>
 							<td> </td>

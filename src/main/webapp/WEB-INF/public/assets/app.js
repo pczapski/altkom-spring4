@@ -74,7 +74,7 @@ phonecatApp.controller('CartController', function CartController($scope,
 });
 
 function calculateCart(cart, lines, products) {
-	var total = 0;
+	var netto = 0;
 	lines
 			.forEach(function(element) {
 				var product = products.find(function(el) {
@@ -85,8 +85,10 @@ function calculateCart(cart, lines, products) {
 					element.avaliable = product.quantity;
 					element.sum = Number((element.quantity * element.price)
 							.toFixed(2));
-					total += element.sum;
+					netto += element.sum;
 				}
 			});
-	cart.total = total.toFixed(2);
+	cart.netto = parseFloat( netto.toFixed(2));
+	cart.vat = parseFloat((netto * 0.23).toFixed(2));
+	cart.total = (cart.netto + cart.vat).toFixed(2);
 }
