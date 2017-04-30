@@ -57,7 +57,7 @@
 							<td class="col-sm-1 col-md-1 text-center"><strong>$
 									{{line.price}}</strong></td>
 							<td class="col-sm-1 col-md-1 text-center"><strong>$
-									{{line.sum}}</strong></td>
+									{{line.sum | number:2}}</strong></td>
 							<td class="col-sm-1 col-md-1">
 								<button type="button" class="btn btn-danger"
 									ng-click="remove(line)">
@@ -78,13 +78,13 @@
 							<h4>Vat</h4>
 							<h3>Total</h3></td>
 							<td class="text-right"><h4>
-									<strong>{{netto}}</strong>
+									<strong>{{netto| number:2}}</strong>
 								</h4>
 								<h4>
-									<strong>{{vat}}</strong>
+									<strong>{{vat| number:2}}</strong>
 								</h4>
 								<h3>
-									<strong>{{total}}</strong>
+									<strong>{{total| number:2}}</strong>
 								</h3> 
 								</td>
 						</tr>

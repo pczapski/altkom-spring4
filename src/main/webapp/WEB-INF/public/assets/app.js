@@ -83,12 +83,11 @@ function calculateCart(cart, lines, products) {
 				if (product) {
 					element.price = product.price;
 					element.avaliable = product.quantity;
-					element.sum = Number((element.quantity * element.price)
-							.toFixed(2));
+					element.sum = element.quantity * element.price;
 					netto += element.sum;
 				}
 			});
-	cart.netto = parseFloat( netto.toFixed(2));
-	cart.vat = parseFloat((netto * 0.23).toFixed(2));
-	cart.total = (cart.netto + cart.vat).toFixed(2);
+	cart.netto = netto;
+	cart.vat = netto * 0.23;
+	cart.total = cart.netto + cart.vat;
 }
