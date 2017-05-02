@@ -35,8 +35,12 @@ public class RestProductController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Product find(@PathVariable("id") Long id) {
-		return repo.find(id);
+	public ResponseEntity<Product> find(@PathVariable("id") Long id) {
+		Product find = repo.find(id);
+		if (find != null) {
+			return ResponseEntity.ok(find);
+		}
+		return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)

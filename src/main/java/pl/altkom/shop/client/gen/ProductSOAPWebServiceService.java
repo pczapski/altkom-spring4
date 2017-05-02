@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "ProductSOAPWebServiceService", targetNamespace = "http://controller.shop.altkom.pl/", wsdlLocation = "http://localhost:8080/spring-shop/services/product?wsdl")
+@WebServiceClient(name = "ProductSOAPWebServiceService", targetNamespace = "http://controller.shop.altkom.pl/", wsdlLocation = "http://localhost:8080/spring-shop/services/ProductSOAPWebService?wsdl")
 public class ProductSOAPWebServiceService
     extends Service
 {
@@ -30,7 +30,7 @@ public class ProductSOAPWebServiceService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://localhost:8080/spring-shop/services/product?wsdl");
+            url = new URL("http://localhost:8080/spring-shop/services/ProductSOAPWebService?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }
