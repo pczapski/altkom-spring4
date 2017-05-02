@@ -8,8 +8,15 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ include file="/WEB-INF/pages/layout/head.jsp"%>
 <div class="container" ng-app="cart">
-	<div class="row" ng-controller="CartController">
-	<h1 style="color:green" ng-if="orderNo"> <span class="glyphicon glyphicon-ok "></span> Order confirmed no. : {{orderNo}}</h1>
+	<div class="row" ng-controller="CartController" ng-cloak>
+		<center ng-if="orderNo">
+			<i>
+				<h1 style="color: green" >
+					<span class="glyphicon glyphicon-ok "></span> Order confirmed no. :
+					{{orderNo}}
+				</h1>
+			</i>
+		</center>
 		<div class="col-sm-12 col-md-10 col-md-offset-1">
 			<form>
 				<table class="table table-hover">
@@ -46,9 +53,8 @@
 													Stock</strong></span>
 										</div>
 										<div ng-if="item.avaliable < 10">
-											<span >Status: </span><span
-												class="text-warning"><strong>Last items in
-													Stock</strong></span>
+											<span>Status: </span><span class="text-warning"><strong>Last
+													items in Stock</strong></span>
 										</div>
 									</div>
 								</div>
@@ -76,8 +82,8 @@
 							<td> </td>
 							<td> </td>
 							<td><h4>Netto</h4>
-							<h4>Vat</h4>
-							<h3>Total</h3></td>
+								<h4>Vat</h4>
+								<h3>Total</h3></td>
 							<td class="text-right"><h4>
 									<strong>{{netto| number:2}}</strong>
 								</h4>
@@ -86,8 +92,7 @@
 								</h4>
 								<h3>
 									<strong>{{total| number:2}}</strong>
-								</h3> 
-								</td>
+								</h3></td>
 						</tr>
 						<tr>
 							<td> </td>
@@ -100,7 +105,8 @@
 								</button>
 							</td>
 							<td>
-								<button type="button" class="btn btn-success" ng-click="process()">
+								<button type="button" class="btn btn-success"
+									ng-click="process()">
 									Checkout <span class="glyphicon glyphicon-play"></span>
 								</button>
 							</td>

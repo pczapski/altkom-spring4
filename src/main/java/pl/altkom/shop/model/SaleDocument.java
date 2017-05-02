@@ -16,7 +16,7 @@ public class SaleDocument {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
-	private String number;
+	private Long number;
 	@OneToMany(mappedBy = "saleDocument")
 	private Set<SaleDocumentItem> items = new HashSet();
 	@NotNull
@@ -28,14 +28,6 @@ public class SaleDocument {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getNumber() {
-		return number;
-	}
-
-	public void setNumber(String number) {
-		this.number = number;
 	}
 
 	public Set<SaleDocumentItem> getItems() {
@@ -67,6 +59,14 @@ public class SaleDocument {
 				.map(el -> el.getProduct().getPrice().multiply(BigDecimal.valueOf(el.getQuantity())))
 				.reduce(BigDecimal.ZERO, BigDecimal::add);
 
+	}
+
+	public Long getNumber() {
+		return number;
+	}
+
+	public void setNumber(Long number) {
+		this.number = number;
 	}
 
 }

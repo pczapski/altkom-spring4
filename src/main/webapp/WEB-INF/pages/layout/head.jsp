@@ -16,7 +16,6 @@
 <script type="text/javascript" src="${contextPath}/public/assets/js/jquery-2.2.4.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 <script type="text/javascript" src="${contextPath}/public/assets/js/nprogress.js"></script>
-<script type="text/javascript" src="${contextPath}/public/assets/app.js"></script>
 </head>
 <sec:authentication var="user" property="principal" />
 <body>
