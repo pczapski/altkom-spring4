@@ -12,8 +12,8 @@
 		<center ng-if="orderNo">
 			<i>
 				<h1 style="color: green" >
-					<span class="glyphicon glyphicon-ok "></span> Order confirmed no. :
-					{{orderNo}}
+					<span class="glyphicon glyphicon-ok "></span> Order confirmed:
+					{{orderNo}} no.
 				</h1>
 			</i>
 		</center>
