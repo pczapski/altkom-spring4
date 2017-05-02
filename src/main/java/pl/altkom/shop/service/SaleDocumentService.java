@@ -1,5 +1,6 @@
 package pl.altkom.shop.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -18,18 +19,22 @@ public class SaleDocumentService {
 	@PersistenceContext
 	EntityManager em;
 
-	public void insert(DocumentRequest documentRequest) {
+	public Long insert(DocumentRequest documentRequest) {
 		SaleDocument saleDocument = new SaleDocument();
 		em.persist(saleDocument);
-		List<Item> items = documentRequest.items;
+		List<Item> items = documentRequest.getItems();
 		for (Item item : items) {
 			SaleDocumentItem saleDocumentItem = new SaleDocumentItem();
-			Product product = em.find(Product.class, item.idProduct);
+			Product product = em.find(Product.class, item.getId());
 			saleDocumentItem.setProduct(product);
-			saleDocumentItem.setQuantity(item.quantity);
+			saleDocumentItem.setQuantity(item.getQuantity());
 			saleDocumentItem.setSaleDocument(saleDocument);
-			product.setQuantity(product.getQuantity() - item.quantity);
+			product.setQuantity(product.getQuantity() - item.getQuantity());
+			saleDocument.setTotalPrice(saleDocument.getTotalPrice()
+					.add(product.getPrice().multiply(BigDecimal.valueOf(item.getQuantity()))));
+			em.persist(saleDocumentItem);
 		}
+		return saleDocument.getId();
 	}
 
 }

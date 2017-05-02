@@ -4,7 +4,15 @@ $(document).ajaxStart(function() {
 $(document).ajaxComplete(function() {
 	NProgress.done()
 });
+var token = $("meta[name='_csrf']").attr("content");
+var header = $("meta[name='_csrf_header']").attr("content");
 $(document).ready(function() {
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	$(document).ajaxSend(function(e, xhr, options) {
+		xhr.setRequestHeader(header, token);
+	});
+	
 	$(".searcher").keyup(function() {
 		console.log($(".searcher").val())
 		$.get('list/productsTable', function(data) {
@@ -47,36 +55,55 @@ phonecatApp.service('ProductsService', function($http) {
 		});
 	};
 });
+
+phonecatApp.service('CartService', function($http) {
+	var urlBase = 'cart';
+
+	this.process = function(cart) {
+		return $http({
+			url : urlBase+'/process',
+			 headers: {[header]:token},
+			data:cart,
+			method : "POST",
+		});
+	};
+});
+
 phonecatApp.controller('CartController', function CartController($scope,
-		ProductsService) {
-	$scope.lines = []
+		ProductsService, CartService) {
+	$scope.items = []
 	$scope.total = 0;
 
 	ProductsService.getProducts().then(function(response) {
 		$scope.products = response.data;
 
-		$scope.$watch('lines', function(newV, old) {
+		$scope.$watch('items', function(newV, old) {
 			calculateCart($scope, newV, $scope.products);
 		}, true);
 	})
 
-	$scope.addLine = function() {
-		$scope.lines.push({
+	$scope.addItem = function() {
+		$scope.items.push({
 			"quantity" : 1
 		})
 	}
 
 	$scope.remove = function(line) {
 		var index = $scope.lines.indexOf(line);
-		$scope.lines.splice(index, 1);
+		$scope.items.splice(index, 1);
+	}
+	
+	$scope.process = function(){
+		CartService.process({items:$scope.items}).then(function(res){
+			$scope.orderNo = res.data;
+		})
 	}
 
 });
 
-function calculateCart(cart, lines, products) {
+function calculateCart(cart, items, products) {
 	var netto = 0;
-	lines
-			.forEach(function(element) {
+	items.forEach(function(element) {
 				var product = products.find(function(el) {
 					return element.id == el.id;
 				})

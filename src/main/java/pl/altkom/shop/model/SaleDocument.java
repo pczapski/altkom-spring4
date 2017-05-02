@@ -20,7 +20,7 @@ public class SaleDocument {
 	@OneToMany(mappedBy = "saleDocument")
 	private Set<SaleDocumentItem> items = new HashSet();
 	@NotNull
-	private BigDecimal totalPrice;
+	private BigDecimal totalPrice = BigDecimal.ZERO;
 
 	public Long getId() {
 		return id;

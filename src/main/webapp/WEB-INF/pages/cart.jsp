@@ -9,6 +9,7 @@
 <%@ include file="/WEB-INF/pages/layout/head.jsp"%>
 <div class="container" ng-app="cart">
 	<div class="row" ng-controller="CartController">
+	<h1 style="color:green" ng-if="orderNo"> <span class="glyphicon glyphicon-ok "></span> Order confirmed no. : {{orderNo}}</h1>
 		<div class="col-sm-12 col-md-10 col-md-offset-1">
 			<form>
 				<table class="table table-hover">
@@ -22,17 +23,17 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="line in lines">
+						<tr ng-repeat="item in items">
 							<td class="col-sm-8 col-md-6">
 								<div class="media">
 									<a class="thumbnail pull-left" href="#"> <img
-										ng-src="${contextPath}/product/img/{{line.id}}"
+										ng-src="${contextPath}/product/img/{{item.id}}"
 										style="width: 60px; height: 60px;">
 									</a>
 									<div class="media-body">
 										<h4 class="media-heading">
 											<select class="form-control"
-												style="color: #428bca; font-weight: bold" ng-model="line.id">
+												style="color: #428bca; font-weight: bold" ng-model="item.id">
 												<option ng-repeat="product in products "
 													value="{{product.id}}">{{product.name}}</option>
 											</select>
@@ -40,11 +41,11 @@
 										<h5 class="media-heading">
 											by <a href="#">Brand name</a>
 										</h5>
-										<div ng-if="line.avaliable >= 10">
+										<div ng-if="item.avaliable >= 10">
 											<span>Status: </span><span class="text-success"><strong>In
 													Stock</strong></span>
 										</div>
-										<div ng-if="line.avaliable < 10">
+										<div ng-if="item.avaliable < 10">
 											<span >Status: </span><span
 												class="text-warning"><strong>Last items in
 													Stock</strong></span>
@@ -53,14 +54,14 @@
 								</div>
 							</td>
 							<td class="col-sm-1 col-md-1" style="text-align: center"><input
-								type="number" class="form-control" ng-model="line.quantity"></td>
-							<td class="col-sm-1 col-md-1 text-center"><strong>$
-									{{line.price}}</strong></td>
-							<td class="col-sm-1 col-md-1 text-center"><strong>$
-									{{line.sum | number:2}}</strong></td>
+								type="number" class="form-control" ng-model="item.quantity"></td>
+							<td class="col-sm-1 col-md-1 text-center"><strong>
+									{{item.price}}</strong></td>
+							<td class="col-sm-1 col-md-1 text-center"><strong>
+									{{item.sum | number:2}}</strong></td>
 							<td class="col-sm-1 col-md-1">
 								<button type="button" class="btn btn-danger"
-									ng-click="remove(line)">
+									ng-click="remove(item)">
 									<span class="glyphicon glyphicon-remove"></span> Remove
 								</button>
 							</td>
@@ -68,7 +69,7 @@
 						<tr>
 							<td>
 								<button type="button" class="btn btn-primary"
-									ng-click="addLine()">
+									ng-click="addItem()">
 									Add product <span class="glyphicon glyphicon-plus"></span>
 								</button> 
 							</td>
@@ -99,7 +100,7 @@
 								</button>
 							</td>
 							<td>
-								<button type="button" class="btn btn-success">
+								<button type="button" class="btn btn-success" ng-click="process()">
 									Checkout <span class="glyphicon glyphicon-play"></span>
 								</button>
 							</td>
