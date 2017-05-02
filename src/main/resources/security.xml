@@ -14,7 +14,7 @@
 	</http>
 	
 	<http auto-config="true" use-expressions="true" pattern="/api/**">
-		<intercept-url pattern="/**" access="hasRole('ROLE_REST') or hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/**" access="hasRole('ROLE_REST') or isAuthenticated()" />
 		<http-basic />
 		<csrf disabled="true" />
 	</http>
