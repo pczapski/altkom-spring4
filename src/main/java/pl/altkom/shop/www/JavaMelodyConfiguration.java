@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +22,12 @@ import pl.altkom.shop.lib.Profiles;
 @Profile(Profiles.WEB)
 @ImportResource("classpath:net/bull/javamelody/monitoring-spring-aspectj.xml")
 public class JavaMelodyConfiguration {
+	@Bean
+	public MonitoringSpringAdvisor springRepoMonitoringAdvisor() {
+		final MonitoringSpringAdvisor interceptor = new MonitoringSpringAdvisor();
+		interceptor.setPointcut(createAnnotationMatchingPointcut(Repository.class));
+		return interceptor;
+	}
 
 	@Bean
 	public MonitoringSpringAdvisor springServiceMonitoringAdvisor() {

@@ -1,9 +1,8 @@
 package pl.altkom.shop.service;
 
 public class Item {
-	public Item(long l, int i) {
+	public Item(long idProduct, int quantity) {
 		idProduct = l;
-		// TODO Auto-generated constructor stub
 		quantity = i;
 	}
 
