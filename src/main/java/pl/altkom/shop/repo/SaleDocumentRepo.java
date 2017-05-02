@@ -10,9 +10,9 @@ import pl.altkom.shop.model.SaleDocument;
 
 @Repository
 public interface SaleDocumentRepo extends JpaRepository<SaleDocument, Long>, SaleDocumentRepoCustom {
-	SaleDocument findByNumber(Long number);
+	SaleDocument findByNo(Long no);
 
-	@Query("SELECT MAX(number) From SaleDocument")
+	@Query("SELECT MAX(no) From SaleDocument")
 	Optional<Long> getLastNumber();
 
 }

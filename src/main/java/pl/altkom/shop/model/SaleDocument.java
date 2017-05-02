@@ -16,7 +16,7 @@ public class SaleDocument {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
-	private Long number;
+	private Long no;
 	@OneToMany(mappedBy = "saleDocument")
 	private Set<SaleDocumentItem> items = new HashSet();
 	@NotNull
@@ -61,12 +61,12 @@ public class SaleDocument {
 
 	}
 
-	public Long getNumber() {
-		return number;
+	public Long getNo() {
+		return no;
 	}
 
-	public void setNumber(Long number) {
-		this.number = number;
+	public void setNo(Long no) {
+		this.no = no;
 	}
 
 }

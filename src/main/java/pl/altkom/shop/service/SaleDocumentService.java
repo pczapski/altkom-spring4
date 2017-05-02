@@ -25,7 +25,7 @@ public class SaleDocumentService {
 
 	public Long insert(DocumentRequest documentRequest) {
 		SaleDocument saleDocument = new SaleDocument();
-		saleDocument.setNumber(repo.getLastNumber().map(current -> current + 1).orElse(1L));
+		saleDocument.setNo(repo.getLastNumber().map(current -> current + 1).orElse(1L));
 		em.persist(saleDocument);
 		List<Item> items = documentRequest.getItems();
 		for (Item item : items) {
@@ -39,7 +39,7 @@ public class SaleDocumentService {
 					.add(product.getPrice().multiply(BigDecimal.valueOf(item.getQuantity()))));
 			em.persist(saleDocumentItem);
 		}
-		return saleDocument.getNumber();
+		return saleDocument.getNo();
 	}
 
 }

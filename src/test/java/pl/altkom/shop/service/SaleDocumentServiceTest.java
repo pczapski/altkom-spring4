@@ -52,7 +52,7 @@ public class SaleDocumentServiceTest {
 		// given
 
 		// when
-		SaleDocument findByNumber = saleDocumentRepo.findByNumber(1L);
+		SaleDocument findByNumber = saleDocumentRepo.findByNo(1L);
 
 		// then
 		assertThat(findByNumber).isNotNull();
