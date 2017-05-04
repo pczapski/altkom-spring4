@@ -21,4 +21,5 @@ public class CoreConfig {
 	public static PropertySourcesPlaceholderConfigurer propertyConfigurer() {
 		return new PropertySourcesPlaceholderConfigurer();
 	}
+
 }
