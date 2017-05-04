@@ -11,6 +11,8 @@ import javax.validation.Valid;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -40,6 +42,7 @@ public class ProductController {
 	@RequestMapping("/list")
 	public String list(Model model, @RequestParam(required = false, value = "page") Integer page,
 			@RequestParam(required = false, value = "orderBy") String orderBy) throws Exception {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
 		productsTable(model, page, orderBy);
 
