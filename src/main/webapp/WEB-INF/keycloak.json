@@ -1,23 +1,8 @@
 {
-	"realm": "stream",
-	"resource": "spring-shop",
-	"auth-server-url": "http://localhost:8080/auth",
-	"ssl-required": "external",
-	"use-resource-role-mappings": false,
-	"enable-cors": true,
-	"cors-max-age": 1000,
-	"cors-allowed-methods": "POST, PUT, DELETE, GET",
-	"bearer-only": false,
-	"enable-basic-auth": false,
-	"expose-token": true,
-	"credentials": {
-		"secret": "234234-234234-234234"
-	},
-	"connection-pool-size": 20,
-	"disable-trust-manager": true,
-	"allow-any-hostname": false,
-	"token-minimum-time-to-live": 10,
-	"min-time-between-jwks-requests": 10,
-	"public-key-cache-ttl": 86400,
-	"principal-attribute":"preferred_username"
+  "realm": "stream",
+  "auth-server-url": "http://localhost:8080/auth",
+  "ssl-required": "external",
+  "resource": "spring-shop",
+  "public-client": true,
+  "principal-attribute":"preferred_username"
 }
