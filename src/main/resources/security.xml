@@ -19,7 +19,7 @@
 		<csrf disabled="true" />
 	</http>
 
-	<http auto-config="true" use-expressions="true" pattern="/**">
+	<http auto-config="true" use-expressions="true" pattern="/**" entry-point-ref="ajaxAwareLoginUrlAuthenticationEntryPoint">
 		<intercept-url pattern="/login*" access="isAnonymous()" />
 		<intercept-url pattern="/public/**" access="permitAll" />
 		<intercept-url pattern="/**" access="isAuthenticated()" />

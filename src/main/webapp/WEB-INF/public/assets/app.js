@@ -6,14 +6,28 @@ $(document).ajaxComplete(function() {
 });
 var token = $("meta[name='_csrf']").attr("content");
 var header = $("meta[name='_csrf_header']").attr("content");
+function checkSession(event, xhr, ajaxOptions)
+{
+    if (xhr.readyState == 4)
+    {
+        if(xhr.getResponseHeader("Login-Screen") != null && xhr.getResponseHeader("Login-Screen").length)
+        {
+            window.location.href=window.location.href; //whatever
+        }
+    }
+}
+
+
+
 $(document).ready(function() {
 	$(document).ajaxSend(function(e, xhr, options) {
 		xhr.setRequestHeader(header, token);
 	});
+	$(document).ajaxComplete(checkSession)
 	
 	$(".searcher").keyup(function() {
 		console.log($(".searcher").val())
-		$.get('list/productsTable', function(data) {
+		$.get('list/productsTable', function(data,cos,res) {
 			$("table tbody").empty();
 			var tbody = $(data).find("tbody tr")
 			$("table tbody").append(tbody);
