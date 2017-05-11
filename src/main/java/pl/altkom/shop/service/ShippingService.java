@@ -26,7 +26,7 @@ public class ShippingService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		mailSender.send("m.szajowski@gmail.com", "Nowe zamówienie", "DOcukment");
+		mailSender.send("m.szajowski@gmail.com", "Nowe zamówienie", "Docukment");
 		log.info(Thread.currentThread().getName() + " Wyslano 2");
 	}
 }

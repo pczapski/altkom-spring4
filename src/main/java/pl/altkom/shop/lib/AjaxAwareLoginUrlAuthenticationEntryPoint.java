@@ -23,10 +23,10 @@ public class AjaxAwareLoginUrlAuthenticationEntryPoint implements Authentication
 	@Override
 	public void commence(final HttpServletRequest request, final HttpServletResponse response,
 			final AuthenticationException authException) throws IOException, ServletException {
-		response.setHeader("Login-Screen", "true");
 		if (isPreflight(request)) {
 			response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 		} else if (isRestRequest(request)) {
+			response.setHeader("Login-Screen", "true");
 			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
 		} else {
 			response.sendRedirect(request.getContextPath() + "/login");

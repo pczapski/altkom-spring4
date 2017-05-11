@@ -26,6 +26,8 @@ public class RestProductController {
 	@Monitoring
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Product> list() {
+		String a = null;
+		a.toCharArray();
 		return repo.getAll();
 	}
 
