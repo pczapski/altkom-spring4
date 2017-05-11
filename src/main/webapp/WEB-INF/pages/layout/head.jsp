@@ -12,6 +12,7 @@
 <link href="${contextPath}/public/assets/css/font-awesome.min.css" rel="stylesheet" />
 <link href="${contextPath}/public/assets/css/nprogress.css" rel="stylesheet" />
 <script type="text/javascript" src="${contextPath}/public/assets/js/jquery-2.2.4.js"></script>
+<script type="text/javascript" src="${contextPath}/public/assets/js/angular.min.js"></script>
 <script type="text/javascript" src="${contextPath}/public/assets/js/nprogress.js"></script>
 <script type="text/javascript" src="${contextPath}/public/assets/app.js"></script>
 </head>
