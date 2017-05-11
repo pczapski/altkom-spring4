@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,8 @@ public class SaleDocumentService {
 	SaleDocumentRepo repo;
 	@Inject
 	ApplicationEventPublisher publisher;
+	@Inject
+	JmsTemplate jmsTemplate;
 
 	public Long insert(DocumentRequest documentRequest) {
 		SaleDocument saleDocument = new SaleDocument();
@@ -42,7 +45,8 @@ public class SaleDocumentService {
 					.add(product.getPrice().multiply(BigDecimal.valueOf(item.getQuantity()))));
 			em.persist(saleDocumentItem);
 		}
-		publisher.publishEvent(new OrderCreated(saleDocument.getId()));
+		// publisher.publishEvent(new OrderCreated(saleDocument.getId()));
+		jmsTemplate.convertAndSend(new OrderCreated(saleDocument.getId()));
 		return saleDocument.getNo();
 	}
 

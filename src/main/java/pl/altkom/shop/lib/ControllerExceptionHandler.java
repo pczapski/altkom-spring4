@@ -1,39 +1,22 @@
 package pl.altkom.shop.lib;
 
-import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.springframework.http.ResponseEntity;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
-@ControllerAdvice(annotations = RestController.class)
+@ControllerAdvice(annotations = Controller.class)
 public class ControllerExceptionHandler {
-	public static class ServerError {
-		private String result = "error :-(";
-		private String error;
-
-		public ServerError(String error) {
-			this.setError(error);
-		}
-
-		public String getError() {
-			return error;
-		}
-
-		public void setError(String error) {
-			this.error = error;
-		}
-
-		public String getResult() {
-			return result;
-		}
-
-	}
-
-	@ResponseBody
 	@ExceptionHandler(Exception.class)
-	public ResponseEntity<ServerError> handle(final Exception exception) {
-		return ResponseEntity.ok(new ServerError(ExceptionUtils.getStackTrace(exception)));
+	public ModelAndView handle(final Exception exception, final HttpServletRequest request) {
+		exception.printStackTrace();
+		Map<String, Object> model = new HashMap();
+		model.put("exception", exception);
+		return new ModelAndView("error", model);
 	}
 }
