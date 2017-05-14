@@ -7,7 +7,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ include file="/WEB-INF/pages/layout/head.jsp"%>
-
+<c:set var="currentPage" value="${param.page!=null?param.page:1}" />
 
 <a href="new" class="btn btn-primary "> <i
 	class=" glyphicon glyphicon-plus"></i> Add new product
@@ -50,10 +50,11 @@
 </table>
 <nav aria-label="Page navigation" class="pull-right">
 	<ul class="pagination">
-		<li><a href="#" aria-label="Previous"> <span
+		<li><a href="?page=${currentPage-1}" aria-label="Previous"> <span
 				aria-hidden="true">&laquo;</span>
 		</a></li>
-		<li><a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+		<li><a href="#">${currentPage}</a></li>
+		<li><a href="?page=${currentPage+1}" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 		</a></li>
 	</ul>
 </nav>
