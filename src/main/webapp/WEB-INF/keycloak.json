@@ -1,10 +1,10 @@
 {
-	"realm": "stream",
+	"realm": "altkom",
 	"auth-server-url": "http://localhost:8080/auth",
 	"ssl-required": "external",
 	"resource": "spring-shop",
 	"principal-attribute": "preferred_username",
 	"credentials": {
-		"secret": "6e3eedfa-9613-45ab-a579-35bc674e3528"
+		  "secret": "dc8d0a3a-62d8-420f-8ad0-db2908c974a1"
 	}
 }
