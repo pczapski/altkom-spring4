@@ -1,0 +1,23 @@
+<th xmlns:c="http://java.sun.com/jsp/jstl/core"  
+xmlns:spring="http://www.springframework.org/tags" 
+xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+xmlns:jsp="http://java.sun.com/JSP/Page">
+
+	<jsp:directive.attribute name="name"  required="true" rtexprvalue="false" description="Message is displayed in case the collection is null"/>
+	<jsp:directive.attribute name="title" required="true" rtexprvalue="true" description="Comma separated list"/>
+
+	<c:set var="sortDir" value="asc"/>
+	<c:set var="iconDir" value=""/>
+	<c:choose>
+		<c:when test="${param.sortDir == 'asc' and param.sortBy==name}">
+			<c:set var="sortDir" value="desc"/>
+			<c:set var="iconDir" value="glyphicon-arrow-down"/>
+		</c:when>
+		<c:when test="${param.sortDir == 'desc' and param.sortBy==name}">
+			<c:set var="sortDir" value="asc"/>
+			<c:set var="iconDir" value="glyphicon-arrow-up"/>
+		</c:when>
+	</c:choose>
+	
+	<a href="?sortDir=${sortDir}&amp;sortBy=${name}"><spring:message code="${title}" text="${title}"/> <span class="glyphicon ${iconDir}"></span></a>
+</th>

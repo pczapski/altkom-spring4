@@ -6,8 +6,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="altkom" tagdir="/WEB-INF/tags/altkom"  %>
 <%@ include file="/WEB-INF/pages/layout/head.jsp"%>
 <c:set var="currentPage" value="${param.page!=null?param.page:1}" />
+
 
 <a href="new" class="btn btn-primary "> <i
 	class=" glyphicon glyphicon-plus"></i> Add new product
