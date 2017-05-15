@@ -30,7 +30,7 @@ import pl.altkom.shop.service.ProductService;
 @Controller
 @RequestMapping("/product")
 public class ProductController {
-	static File imagesDir = new File("C:\\Users\\Mirek\\git\\altkom-spring42\\phones");
+	static File imagesDir = new File("C:\\SzkolenieSpring\\phones");
 
 	@Inject
 	ProductRepo repo;
