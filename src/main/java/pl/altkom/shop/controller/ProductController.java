@@ -42,8 +42,6 @@ public class ProductController {
 			@RequestParam(required = false, value = "orderBy") String orderBy) throws Exception {
 
 		productsTable(model, page, orderBy);
-		String a = null;
-		a.toCharArray();
 		return "product/product-list";
 	}
 
