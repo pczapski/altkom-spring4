@@ -97,9 +97,9 @@ public class ProductController {
 		File savedFile = saveFile(file);
 		product.setImgLocation(savedFile.getAbsolutePath());
 		if (product.getId() != null) {
-			repo.update(product);
+			service.update(product);
 		} else {
-			repo.insert(product);
+			service.insert(product);
 		}
 		redirectAttributes.addFlashAttribute("saved", true);
 		return "redirect:/product/list";

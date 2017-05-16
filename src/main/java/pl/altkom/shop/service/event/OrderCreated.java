@@ -1,4 +1,4 @@
-package pl.altkom.shop.service;
+package pl.altkom.shop.service.event;
 
 import java.io.Serializable;
 

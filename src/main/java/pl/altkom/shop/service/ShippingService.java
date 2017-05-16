@@ -1,7 +1,6 @@
 package pl.altkom.shop.service;
 
 import javax.inject.Inject;
-import javax.jms.Message;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +12,7 @@ import org.springframework.transaction.event.TransactionalEventListener;
 
 import pl.altkom.shop.JMSConfig;
 import pl.altkom.shop.MailSenderService;
+import pl.altkom.shop.service.event.OrderCreated;
 
 @Service
 public class ShippingService {
@@ -34,16 +34,14 @@ public class ShippingService {
 	}
 
 	@JmsListener(destination = JMSConfig.ORDER_QUEUE)
-	public void sendToClientJMS(Message message) {
+	public void handle(OrderCreated message) throws Exception {
+		Long id = message.getId();
+		// ActiveMQObjectMessage qma = (ActiveMQObjectMessage) message;
+		// Serializable object = qma.getObject();
 		log.info(Thread.currentThread().getName() + " START");
-		try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Thread.sleep(10000);
 		mailSender.send("m.szajowski@gmail.com", "Nowe zamówienie", "Docukment");
-		log.info(Thread.currentThread().getName() + " STOP");
+		// log.info(Thread.currentThread().getName() + " STOP");
 	}
 
 }

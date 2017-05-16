@@ -16,6 +16,7 @@ import pl.altkom.shop.model.Product;
 import pl.altkom.shop.model.SaleDocument;
 import pl.altkom.shop.model.SaleDocumentItem;
 import pl.altkom.shop.repo.SaleDocumentRepo;
+import pl.altkom.shop.service.event.OrderCreated;
 
 @Service
 @Transactional
