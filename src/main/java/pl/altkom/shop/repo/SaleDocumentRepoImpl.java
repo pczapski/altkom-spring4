@@ -1,6 +1,7 @@
 package pl.altkom.shop.repo;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -10,11 +11,17 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mysema.query.jpa.JPQLQuery;
+import com.mysema.query.support.Expressions;
+import com.mysema.query.types.OrderSpecifier;
+import com.mysema.query.types.Predicate;
+import com.mysema.query.types.path.SimplePath;
 
+import pl.altkom.shop.model.Product;
 import pl.altkom.shop.model.QProduct;
 import pl.altkom.shop.model.QSaleDocument;
 import pl.altkom.shop.model.QSaleDocumentItem;
 import pl.altkom.shop.model.SaleDocument;
+import pl.altkom.shop.model.SaleDocumentItem;
 
 @Repository
 @Transactional
@@ -51,6 +58,23 @@ public class SaleDocumentRepoImpl extends QueryDslRepositorySupport implements S
 			query.offset(search.page * search.pageSize).limit(search.pageSize);
 		}
 		return query.list(new QSaleDocumentInfo(saledocument.no, saleDocumentItem.id, product.name));
+	}
+
+	@Override
+	public List<SaleDocumentInfo> findByGUI(Map<String, Object> where, Map<String, Integer> order) {
+		SimplePath<SaleDocument> saleDocument = Expressions.path(SaleDocument.class, "saleDocument");
+		SimplePath<SaleDocumentItem> saleDocumentItem = Expressions.path(SaleDocumentItem.class, "saleDocumentItem");
+		SimplePath<Product> product = Expressions.path(Product.class, "product");
+
+		QueryDSLProvider queryDSLProvider = new QueryDSLProvider(saleDocument, saleDocumentItem, product);
+
+		Predicate[] predicates = queryDSLProvider.getPredicates(where);
+		OrderSpecifier<?>[] orders = queryDSLProvider.getOrders(order);
+
+		from(QSaleDocument.saleDocument).leftJoin(QSaleDocument.saleDocument.items, saleDocumentItem)
+				.innerJoin(QSaleDocumentItem.saleDocumentItem.product, product).where(predicates).orderBy(orders)
+				.list(QSaleDocument.saleDocument);
+		return null;
 	}
 
 }

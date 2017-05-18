@@ -3,7 +3,9 @@ package pl.altkom.shop.service;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -90,5 +92,23 @@ public class SaleDocumentServiceTest {
 		// then
 		assertThat(findSaleDocument).isNotEmpty();
 		assertThat(findSaleDocument.iterator().next()).isInstanceOf(SaleDocument.class);
+	}
+
+	@Test
+	public void shoulFindSaleDocumentsByGUI() throws Exception {
+		// given
+
+		// when
+		Map<String, Object> where = new HashMap<>();
+		where.put("no", 12L);
+		where.put("saleDocumentItem.lp", 12);
+
+		Map<String, Integer> order = new HashMap<>();
+		order.put("no", 1);
+		order.put("saleDocumentItem.lp", 0);
+		List<SaleDocumentInfo> findSaleDocument = saleDocumentRepo.findByGUI(where, order);
+
+		// then
+		// assertThat(findSaleDocument).isNotEmpty();
 	}
 }
