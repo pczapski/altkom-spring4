@@ -111,4 +111,5 @@ public class SaleDocumentServiceTest {
 		// then
 		// assertThat(findSaleDocument).isNotEmpty();
 	}
+
 }

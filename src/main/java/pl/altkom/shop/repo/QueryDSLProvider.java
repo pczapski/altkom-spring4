@@ -10,16 +10,17 @@ import com.mysema.query.support.Expressions;
 import com.mysema.query.types.OrderSpecifier;
 import com.mysema.query.types.Predicate;
 import com.mysema.query.types.expr.BooleanExpression;
+import com.mysema.query.types.path.BeanPath;
 import com.mysema.query.types.path.ComparablePath;
-import com.mysema.query.types.path.SimplePath;
 
+@SuppressWarnings("rawtypes")
 public class QueryDSLProvider {
-	Map<String, SimplePath> currentPaths = new HashMap<>();
-	private SimplePath main;
+	Map<String, BeanPath> currentPaths = new HashMap<>();
+	private BeanPath main;
 
-	public QueryDSLProvider(SimplePath... paths) {
+	public QueryDSLProvider(BeanPath... paths) {
 		main = paths[0];
-		for (SimplePath simplePath : paths) {
+		for (BeanPath simplePath : paths) {
 			String name = simplePath.getMetadata().getName();
 			currentPaths.put(name, simplePath);
 		}
@@ -32,7 +33,7 @@ public class QueryDSLProvider {
 			Object val = where.get(path);
 			if (path.contains(".")) {
 				String[] split = path.split("\\.");
-				SimplePath simplePath = currentPaths.get(split[0]);
+				BeanPath simplePath = currentPaths.get(split[0]);
 				BooleanExpression createExpression = createExpression(simplePath, split[1], val);
 				predicates.add(createExpression);
 			} else {
@@ -50,7 +51,7 @@ public class QueryDSLProvider {
 			Integer val = order.get(path);
 			if (path.contains(".")) {
 				String[] split = path.split("\\.");
-				SimplePath simplePath = currentPaths.get(split[0]);
+				BeanPath simplePath = currentPaths.get(split[0]);
 				ComparablePath<Comparable> comparablePath = Expressions.comparablePath(Comparable.class, simplePath,
 						split[1]);
 				predicates.add(val == 1 ? comparablePath.asc() : comparablePath.desc());
@@ -62,7 +63,7 @@ public class QueryDSLProvider {
 		return predicates.toArray(new OrderSpecifier[0]);
 	}
 
-	private BooleanExpression createExpression(SimplePath path, String pathString, Object val) {
+	private BooleanExpression createExpression(BeanPath path, String pathString, Object val) {
 		if (val instanceof String) {
 			return Expressions.stringPath(pathString).startsWithIgnoreCase(val.toString());
 		}
