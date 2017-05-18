@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.querydsl.QSort;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -84,7 +85,7 @@ public class SaleDocumentServiceTest {
 
 		// when
 		Iterable<SaleDocument> findSaleDocument = saleDocumentRepo.findAll(QSaleDocument.saleDocument.id.isNotNull(),
-				new PageRequest(1, 10));
+				new PageRequest(1, 10, new QSort(QSaleDocument.saleDocument.no.asc())));
 
 		// then
 		assertThat(findSaleDocument).isNotEmpty();
