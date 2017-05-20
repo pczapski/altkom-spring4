@@ -25,6 +25,7 @@ import pl.altkom.shop.model.Product;
 import pl.altkom.shop.model.QProduct;
 import pl.altkom.shop.model.QSaleDocument;
 import pl.altkom.shop.model.SaleDocument;
+import pl.altkom.shop.model.SaleDocumentItem;
 import pl.altkom.shop.repo.ProductRepo;
 import pl.altkom.shop.repo.SaleDocumentInfo;
 import pl.altkom.shop.repo.SaleDocumentRepo;
@@ -42,6 +43,10 @@ public class SaleDocumentServiceTest {
 	ProductRepo repo;
 	@Inject
 	SaleDocumentRepo saleDocumentRepo;
+	@Inject
+	pl.altkom.shop.mrepo.ProductRepo productRepo;
+	@Inject
+	pl.altkom.shop.mrepo.SaleDocumentItemRepo saleDocumentItemRepo;
 
 	@Test
 	public void shoulAddProduct() throws Exception {
@@ -113,4 +118,29 @@ public class SaleDocumentServiceTest {
 		// assertThat(findSaleDocument).isNotEmpty();
 	}
 
+	@Test
+	public void shoulFindAllProductsByMyBiats() throws Exception {
+		// when
+		List<Product> findAll = productRepo.findAll();
+		int size = findAll.size();
+		Product product = new Product();
+		product.setName("a");
+		product.setPrice(BigDecimal.TEN);
+		product.setQuantity(10);
+		productRepo.save(product);
+
+		// then
+		findAll = productRepo.findAll();
+		assertThat(findAll.size()).isGreaterThan(size);
+	}
+
+	@Test
+	public void shoulFindSaleDocumentItemsWithProductByMyBiats() throws Exception {
+		// when
+		List<SaleDocumentItem> findAll = saleDocumentItemRepo.findAll();
+
+		// then
+		assertThat(findAll.get(0).getProduct()).isNotNull();
+		assertThat(findAll.get(0).getProduct().getName()).isNotNull();
+	}
 }
