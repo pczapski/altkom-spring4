@@ -75,7 +75,8 @@ public class SaleDocumentServiceTest {
 		SaleDocumentSearcher saleDocumentSearcher = new SaleDocumentSearcher();
 		saleDocumentSearcher.where = QProduct.product.name.startsWithIgnoreCase("mirek");
 		saleDocumentSearcher.orderBy = QSaleDocument.saleDocument.no.desc();
-		List<SaleDocumentInfo> findSaleDocument = saleDocumentRepo.findSaleDocument(saleDocumentSearcher);
+		Iterable<SaleDocument> findSaleDocument = saleDocumentRepo
+				.findAll(QProduct.product.name.startsWithIgnoreCase("mirek"), QSaleDocument.saleDocument.no.desc());
 
 		// then
 		assertThat(findSaleDocument).isEmpty();
