@@ -7,9 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.web.multipart.MultipartFile;
+
+import pl.altkom.shop.FileSize;
 
 @Entity
 public class Product implements Serializable {
@@ -24,6 +29,10 @@ public class Product implements Serializable {
 	@NotNull
 	private BigDecimal price;
 	private String imgLocation;
+	@Transient
+	@XmlTransient
+	@FileSize(size = 100)
+	private MultipartFile file;
 
 	public Product(String name, String description, int quentity, BigDecimal price) {
 		this.name = name;
@@ -82,6 +91,15 @@ public class Product implements Serializable {
 
 	public void setImgLocation(String imgLocation) {
 		this.imgLocation = imgLocation;
+	}
+
+	@XmlTransient
+	public MultipartFile getFile() {
+		return file;
+	}
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
 	}
 
 }

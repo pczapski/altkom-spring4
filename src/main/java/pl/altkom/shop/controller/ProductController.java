@@ -90,11 +90,11 @@ public class ProductController {
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String submitForm(@ModelAttribute @Valid Product product, BindingResult bindingResult,
-			RedirectAttributes redirectAttributes, @RequestParam("file") MultipartFile file) throws Exception {
+			RedirectAttributes redirectAttributes) throws Exception {
 		if (bindingResult.hasErrors()) {
 			return "product/product-form";
 		}
-		File savedFile = saveFile(file);
+		File savedFile = saveFile(product.getFile());
 		product.setImgLocation(savedFile.getAbsolutePath());
 		if (product.getId() != null) {
 			repo.update(product);

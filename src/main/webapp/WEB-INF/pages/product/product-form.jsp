@@ -1,6 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -48,7 +47,8 @@
 	<div class="form-group">
 		<label class="col-sm-2 control-label">Photo</label>
 		<div class="col-sm-8">
-			<input type="file" name="file" class="form-control"/>
+		<form:input path="file" type="file" class="form-control"/>
+		<form:errors path="file" />
 		</div>
 	</div>
 	<div class="form-group">
