@@ -7,9 +7,10 @@
 	pageEncoding="UTF-8"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ include file="/WEB-INF/pages/layout/head.jsp"%>
-<h3>Product form</h3>
+<h3>Product form <img id="preview" src="#" alt="your image" style="display:none;width:120px;height:120px" /></h3>
+
 <form:form class="form-horizontal" modelAttribute="product"
-	action="${contextPath}/product/save">
+	action="${contextPath}/product/save?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
 
 	<form:hidden path="id" />
 	<spring:bind path="name">
@@ -44,6 +45,17 @@
 			<form:errors path="description" />
 		</div>
 	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Photo</label>
+		<div class="col-sm-8">
+			<input type="file" name="file" class="form-control"/>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-8 col-sm-offset-2">
+		</div>
+	</div>
+	<form:errors path="" cssClass="error"/>
 	<button type="submit" class="btn btn-primary pull-right">
 		<i class=" glyphicon glyphicon-ok"></i> Save
 	</button>

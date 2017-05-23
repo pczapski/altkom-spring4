@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -38,7 +37,7 @@
 	<tbody>
 		<c:forEach var="p" items="${products}">
 			<tr>
-				<td>${p.id}</td>
+				<td>${p.id}<img src="img/${p.id}" style="width:30px;height:30px" onerror="this.style='display:none'"/></td>
 				<td>${p.name}</td>
 				<td>${p.quantity}</td>
 				<td>${p.price}</td>
