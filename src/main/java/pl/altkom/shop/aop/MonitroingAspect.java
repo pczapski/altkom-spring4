@@ -25,7 +25,7 @@ public class MonitroingAspect {
 	public void allRepos() {
 	}
 
-	@Around("@annotation(pl.altkom.shop.aop.Monitoring) || allRepos() || allServices()")
+	@Around("@annotation(pl.altkom.shop.aop.Monitoring) ")
 	public Object monitpr(ProceedingJoinPoint pjp) throws Throwable {
 		if (ENABLED) {
 			MethodSignature ms = (MethodSignature) pjp.getSignature();
