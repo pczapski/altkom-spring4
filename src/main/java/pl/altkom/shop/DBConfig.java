@@ -56,6 +56,7 @@ public class DBConfig {
 		hikariConfig.setMaximumPoolSize(5);
 		hikariConfig.setConnectionTestQuery("SELECT 1");
 		hikariConfig.setPoolName("springHikariCP");
+		hikariConfig.setRegisterMbeans(true);
 
 		hikariConfig.addDataSourceProperty("dataSource.cachePrepStmts", "true");
 		hikariConfig.addDataSourceProperty("dataSource.prepStmtCacheSize", "250");
