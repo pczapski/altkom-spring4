@@ -42,7 +42,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		super.configure(http);
-		http.authorizeRequests().antMatchers("/product/**").hasAnyRole("USER", "ADMIN", "REST").anyRequest().permitAll()
-				.and().logout().logoutUrl("/logout");
+		http.authorizeRequests().antMatchers("/api/**").hasAnyRole("REST").antMatchers("/product/**")
+				.hasAnyRole("USER", "ADMIN").anyRequest().permitAll().and().logout().logoutUrl("/logout");
 	}
 }
