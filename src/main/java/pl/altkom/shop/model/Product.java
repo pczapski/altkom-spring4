@@ -6,22 +6,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
-	@NotEmpty
 	private String name;
 	private String description;
-	@NotNull
 	private Integer quantity;
-	@NotNull
 	private BigDecimal price;
+	private String fileName;
 
 	public Product(String name, String description, int quentity, BigDecimal price) {
 		this.name = name;
@@ -72,6 +67,14 @@ public class Product {
 
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 }

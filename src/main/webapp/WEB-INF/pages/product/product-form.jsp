@@ -8,8 +8,9 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ include file="/WEB-INF/pages/layout/head.jsp"%>
 <h3>Product form</h3>
+<img id="preview" src="#"/>
 <form:form class="form-horizontal" modelAttribute="product"
-	action="${contextPath}/product/save">
+	action="${contextPath}/product/save" enctype="multipart/form-data">
 
 	<form:hidden path="id" />
 	<spring:bind path="name">
@@ -42,6 +43,13 @@
 		<div class="col-sm-8">
 			<form:textarea path="description" class="form-control" />
 			<form:errors path="description" />
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="col-sm-2 control-label">File</label>
+		<div class="col-sm-8">
+		<input name="file" type="file" class="form-control" />
 		</div>
 	</div>
 	<button type="submit" class="btn btn-primary pull-right">
