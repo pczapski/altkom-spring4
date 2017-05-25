@@ -14,15 +14,18 @@ import org.springframework.stereotype.Component;
 public class MonitroingAspect {
 	Logger log = Logger.getLogger(MonitroingAspect.class);
 
-	@Around("@annotation(pl.altkom.shop.aop.Monitoring)")
+	@Around("@annotation(pl.altkom.shop.aop.Monitoring) ")
 	public Object monitpr(ProceedingJoinPoint pjp) throws Throwable {
 		MethodSignature ms = (MethodSignature) pjp.getSignature();
 		Method m = ms.getMethod();
-		long max = m.getAnnotation(Monitoring.class).maxTime();
+
+		Object target = pjp.getTarget();
+		Method declaredMethod = target.getClass().getDeclaredMethod(m.getName());
+
+		long max = declaredMethod.getAnnotation(Monitoring.class).maxTime();
 		long currentTimeMillis = System.currentTimeMillis();
 		Object obj = pjp.proceed();
 		long end = System.currentTimeMillis() - currentTimeMillis;
-		log.info(m + " took: " + end);
 		if (end > max) {
 			log.error(m + " took: " + end);
 		} else {
