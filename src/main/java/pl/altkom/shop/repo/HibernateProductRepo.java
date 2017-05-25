@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,12 +37,16 @@ public class HibernateProductRepo implements ProductRepo {
 
 	@Override
 	@Transactional(readOnly = true)
+	// @Secured("ROLE_ADMIN")
+	// @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+	// @SuperAdmin
 	public Product find(Long id) {
 		Product product = em.find(Product.class, id);
 		return product;
 	}
 
 	@Override
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN') or #product.name == principal.username")
 	public void update(Product product) {
 		em.merge(product);
 	}
