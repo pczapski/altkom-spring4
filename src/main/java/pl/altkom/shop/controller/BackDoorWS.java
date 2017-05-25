@@ -30,7 +30,7 @@ public class BackDoorWS implements ApplicationContextAware {
 
 	@Override
 	public void setApplicationContext(ApplicationContext arg0) throws BeansException {
-		this.context = context;
+		this.context = arg0;
 
 	}
 }
